@@ -1,0 +1,96 @@
+/* Brana VPN · 设置向导 */
+body { min-height: 100vh; font-size: 13.5px; overflow-x: hidden; }
+.wz { max-width: 720px; margin: 0 auto; padding: 22px 20px 48px; min-height: 100vh; display: flex; flex-direction: column; }
+.wz-top { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.brand svg { filter: drop-shadow(0 6px 14px rgba(99, 102, 241, .35)); }
+.wz-tag { font-size: 11.5px; font-weight: 700; color: var(--text-2); padding: 2px 9px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); }
+
+/* 步骤条 */
+.stepper { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 30px 0 22px; }
+.st { position: relative; display: flex; flex-direction: column; align-items: center; gap: 9px; padding: 0; border: 0; background: none; color: var(--text-3); cursor: pointer; font: inherit; }
+.st::before { content: ""; position: absolute; top: 23px; right: calc(50% + 30px); width: calc(100% - 60px); height: 2px; border-radius: 2px; background: var(--border-2); transition: background .5s var(--ease); }
+.st:first-child::before { display: none; }
+.st.reach::before { background: var(--grad); }
+.st-dot { position: relative; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--border-2); color: var(--text-3); transition: background .4s var(--ease), color .3s, border-color .3s, box-shadow .4s, transform .35s var(--spring); }
+.st-dot > span { grid-area: 1 / 1; display: inline-flex; transition: opacity .3s, transform .45s var(--spring); }
+.st-ok { opacity: 0; transform: scale(.4) rotate(-30deg); }
+.st:hover .st-dot { transform: translateY(-2px); }
+.st-lbl { font-size: 12.5px; font-weight: 700; transition: color .3s; }
+.st.cur .st-dot { color: var(--text); border-color: transparent; background: linear-gradient(var(--solid-2), var(--solid-2)) padding-box, var(--grad) border-box; border: 2px solid transparent; box-shadow: 0 0 0 6px rgba(99, 102, 241, .14), 0 10px 26px rgba(99, 102, 241, .25); animation: curPulse 2.4s ease-in-out infinite; }
+.st.cur .st-lbl, .st.done .st-lbl { color: var(--text); }
+.st.done .st-dot { color: #fff; border-color: transparent; background: var(--grad); box-shadow: 0 8px 20px rgba(99, 102, 241, .3); }
+.st.done .st-ico { opacity: 0; transform: scale(.4); }
+.st.done .st-ok { opacity: 1; transform: none; }
+@keyframes curPulse { 50% { box-shadow: 0 0 0 10px rgba(99, 102, 241, .06), 0 10px 26px rgba(99, 102, 241, .25); } }
+
+/* 舞台与卡片切换动画 */
+.stage { position: relative; flex: 1; }
+.stage > .step { left: 0; right: 0; top: 0; }
+.step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 30px 32px 20px; }
+.step.in-r { animation: inR .5s var(--spring) both; }
+.step.in-l { animation: inL .5s var(--spring) both; }
+.step.in-0 { animation: fadeUp .45s var(--ease) both; }
+.step.out-l { animation: outL .26s var(--ease) forwards; pointer-events: none; }
+.step.out-r { animation: outR .26s var(--ease) forwards; pointer-events: none; }
+@keyframes inR { from { opacity: 0; transform: translateX(46px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes inL { from { opacity: 0; transform: translateX(-46px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes outL { to { opacity: 0; transform: translateX(-46px) scale(.98); } }
+@keyframes outR { to { opacity: 0; transform: translateX(46px) scale(.98); } }
+.step > .ico-tile { margin-top: 2px; }
+.step h2 { margin: 4px 0 0; font-size: 22px; letter-spacing: .3px; }
+.step .sub { margin-top: -6px; color: var(--text-2); font-size: 13px; display: flex; align-items: center; }
+.step-body { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 8px 0 4px; min-height: 120px; justify-content: center; }
+.step-foot { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--border); }
+.step-foot .btn { height: 38px; padding: 0 16px; border-radius: 11px; }
+
+/* ② 导入 */
+.imp { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+/* ③ 连接 */
+.cn { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.cn .orb { margin: 2px 0 4px; }
+.cn-title { font-size: 20px; }
+.cn-sub { min-height: 20px; color: var(--text-2); font-size: 12.5px; max-width: 520px; }
+.cn-res { width: 100%; display: flex; justify-content: center; }
+.cn-res:empty { display: none; }
+.exit-card { margin-top: 6px; }
+.big-flag { font-size: 40px; line-height: 1; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .3)); }
+.exit-r { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.lat-big { font: 800 22px var(--mono); letter-spacing: -.5px; }
+.lat-big small { font-size: 11px; font-weight: 600; margin-left: 2px; color: var(--text-3); }
+.fix-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.tests { width: 100%; display: flex; flex-direction: column; gap: 6px; margin-top: 10px; text-align: left; }
+.trow { display: grid; grid-template-columns: 26px minmax(0, 1fr) minmax(70px, 150px) 58px; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid transparent; font-size: 12.5px; animation: fadeUp .35s var(--ease) both; transition: border-color .3s, background .3s; }
+.trow.cur { border-color: rgba(34, 197, 94, .35); background: rgba(34, 197, 94, .07); }
+.trow .kind-ic { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: var(--surface-3); color: var(--accent-1); }
+.trow .t-name { font-weight: 600; }
+.trow .t-ms { font: 700 12px var(--mono); text-align: right; }
+.latbar.shimmer { background: linear-gradient(90deg, var(--surface-3) 25%, rgba(34, 211, 238, .35) 50%, var(--surface-3) 75%); background-size: 300% 100%; animation: shimmer 1.2s linear infinite; }
+.latbar.shimmer i { width: 0 !important; }
+.t-more { font-size: 11.5px; text-align: center; }
+
+/* ④ 完成 */
+.burst { position: relative; display: grid; place-items: center; margin: 6px 0 4px; }
+.burst i { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-1); opacity: 0; animation: confetti .9s var(--ease) .25s forwards; animation-delay: calc(.25s + var(--d)); transform: rotate(var(--a)) translateY(0); }
+.burst i:nth-child(odd) { background: #a5b4fc; width: 5px; height: 5px; }
+.burst i:nth-child(3n) { background: var(--ok); }
+@keyframes confetti { 0% { opacity: 1; transform: rotate(var(--a)) translateY(0) scale(1); } 100% { opacity: 0; transform: rotate(var(--a)) translateY(-74px) scale(.4); } }
+.done-exit { min-height: 26px; }
+.lgpill { height: 28px; padding: 0 12px; font-size: 12.5px; gap: 7px; }
+.lgpill b { font-weight: 800; }
+.tiles3 { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 10px 0 4px; }
+.tile3 { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 20px 12px 18px; border-radius: 18px; background: var(--surface-2); border: 1px solid var(--border); animation: fadeUp .45s var(--ease) both; }
+.tile3:nth-child(2) { animation-delay: .07s; }
+.tile3:nth-child(3) { animation-delay: .14s; }
+.tile3 > .tip { position: absolute; top: 9px; right: 9px; }
+.tile3 b { font-size: 13.5px; }
+.pin-demo { display: flex; align-items: center; gap: 6px; color: var(--text-2); padding: 4px 10px; border-radius: 10px; background: var(--surface-3); }
+.pin-demo .ico:last-child { color: var(--accent-1); animation: pinBob 1.8s ease-in-out infinite; }
+@keyframes pinBob { 50% { transform: translateY(-3px); } }
+.kbd { font: 700 11.5px var(--mono); padding: 3px 8px; border-radius: 7px; background: var(--surface-3); border: 1px solid var(--border-2); border-bottom-width: 2px; color: var(--text); }
+
+@media (max-width: 640px) {
+  .step { padding: 22px 16px 16px; }
+  .minis, .tiles3 { grid-template-columns: 1fr; }
+  .st-lbl { font-size: 11.5px; }
+}

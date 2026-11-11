@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Brana VPN · 浏览器专属加速",
+  "short_name": "Brana VPN",
+  "version": "1.2.8",
+  "description": "浏览器专属 VPN：全局按「节点 + ProxyIP」智能优选，连通性优先、自动容灾切换，延迟与速度实时最优。",
+  "minimum_chrome_version": "110",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqg2RJxdVUit74FvI7Kd/cg0hTCG/Kf9Dx19yhvu765S0VLIEvmVIm+7AZOqX2DnGnkC2Rj9R8pyd2o2rLJXM2czldDkDypctlsiN7Y89TmLuglCK/Cay+qWHfzbkAot7PzHi50DkKldLcfJFuKnndjf20X6T1T1MrQrOLejG42pP8zMzCpTIbBOo1PcrTj0/DJz4QwNOqby7Jy6bQ8hkgPeJZNvxjQhrktqK2mIbFY8L/ZbV+3LdqgxjpSc/A028c52cdLsoIlnbLHzeqBy0Xh1zcDHh7IhvMbRoDenRjDIE7SrLKfpeGjOVL27nOrG7b8/deFKwRZaEmlHw2XaySwIDAQAB",
+  "permissions": [
+    "proxy",
+    "storage",
+    "alarms",
+    "nativeMessaging",
+    "privacy",
+    "notifications",
+    "scripting",
+    "webRequest",
+    "webRequestAuthProvider"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Brana VPN",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "options_ui": { "page": "options/options.html", "open_in_tab": true },
+  "commands": {
+    "toggle-vpn": { "suggested_key": { "default": "Alt+Shift+V" }, "description": "开启 / 关闭 Brana VPN" },
+    "next-ip": { "suggested_key": { "default": "Alt+Shift+N" }, "description": "更换出口 IP（下一个 ProxyIP）" }
+  },
+  "web_accessible_resources": [{ "resources": ["shared/flags.woff2"], "matches": ["<all_urls>"] }]
+}
